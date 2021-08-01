@@ -39,11 +39,11 @@ const databaseConfig: DatabaseConfig = {
     mysql: {
       client: 'mysql',
       connection: {
-        host: Application.inDev ? Env.get('MYSQL_HOST') : CLEARDB_DATABASE_URL.host as string,
+        host: Env.get('MYSQL_HOST', CLEARDB_DATABASE_URL.host),
         port: Env.get('MYSQL_PORT', ""),
-        user: Application.inDev ? Env.get('MYSQL_USER') : CLEARDB_DATABASE_URL.username as string,
-        password: Application.inDev ? Env.get('MYSQL_PASSWORD', '') : CLEARDB_DATABASE_URL.password as string,
-        database: Application.inDev ? Env.get('MYSQL_DB_NAME') : CLEARDB_DATABASE_URL.pathname.substr(1) as string,
+        user: Env.get('MYSQL_USER', CLEARDB_DATABASE_URL.username),
+        password: Env.get('MYSQL_PASSWORD', CLEARDB_DATABASE_URL.password),
+        database: Env.get('MYSQL_DB_NAME', CLEARDB_DATABASE_URL.pathname.substr(1)),
       },
       migrations: {
         naturalSort: true,

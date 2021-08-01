@@ -40,7 +40,7 @@ const databaseConfig: DatabaseConfig = {
       client: 'mysql',
       connection: {
         host: Application.inDev ? Env.get('MYSQL_HOST') : CLEARDB_DATABASE_URL.host as string,
-        port: Application.inDev ? Env.get('MYSQL_PORT') : Number(''),
+        port: Env.get('MYSQL_PORT', "0.0.0.0"),
         user: Application.inDev ? Env.get('MYSQL_USER') : CLEARDB_DATABASE_URL.username as string,
         password: Application.inDev ? Env.get('MYSQL_PASSWORD', '') : CLEARDB_DATABASE_URL.password as string,
         database: Application.inDev ? Env.get('MYSQL_DB_NAME') : CLEARDB_DATABASE_URL.pathname.substr(1) as string,

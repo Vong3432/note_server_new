@@ -5,6 +5,7 @@
  * file.
  */
 
+import Application from '@ioc:Adonis/Core/Application';
 import Env from '@ioc:Adonis/Core/Env'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
 import Url from 'url-parse';
@@ -38,11 +39,11 @@ const databaseConfig: DatabaseConfig = {
     mysql: {
       client: 'mysql',
       connection: {
-        host: Env.get('MYSQL_HOST', CLEARDB_DATABASE_URL.host),
-        port: Env.get('MYSQL_PORT', ""),
-        user: Env.get('MYSQL_USER', CLEARDB_DATABASE_URL.username),
-        password: Env.get('MYSQL_PASSWORD', CLEARDB_DATABASE_URL.password),
-        database: Env.get('MYSQL_DB_NAME', CLEARDB_DATABASE_URL.pathname.substr(1)),
+        host: Application.inProduction ? CLEARDB_DATABASE_URL.host : Env.get('MYSQL_HOST'),
+        port: Application.inProduction ? Number('') : Env.get('MYSQL_PORT', ""),
+        user: Application.inProduction ? CLEARDB_DATABASE_URL.username : Env.get('MYSQL_USER'),
+        password: Application.inProduction ? CLEARDB_DATABASE_URL.password : Env.get('MYSQL_PASSWORD'),
+        database: Application.inProduction ? CLEARDB_DATABASE_URL.pathname.substr(1) : Env.get('MYSQL_DB_NAME'),
       },
       migrations: {
         naturalSort: true,

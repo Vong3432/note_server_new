@@ -1,2 +1,2 @@
-release: sh ./release.sh
-web: node build/server.js
+release: ENV_SILENT=true node ace migration:run --force && node ace db:seed 
+web: ENV_SILENT=true node server.js

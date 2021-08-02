@@ -93,8 +93,16 @@ export default class NotesController {
         .sync(ids);
 
       await note.merge({ ...payload.note }).save();
-      await note.refresh();
-      return response.json({ data: note.serialize(), msg: 'Updated successfully' });
+
+      const updatedNote = await Note
+        .query()
+        .preload('tags')
+        .preload('locations')
+        .where('id', params.id)
+        .where('user_id', payload.user_id)
+        .firstOrFail();
+
+      return response.json({ data: updatedNote.serialize(), msg: 'Updated successfully' });
     } catch (error) {
       console.log(error)
       return response.json(error)

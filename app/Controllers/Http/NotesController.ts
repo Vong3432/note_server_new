@@ -93,6 +93,7 @@ export default class NotesController {
         .sync(ids);
 
       await note.merge({ ...payload.note }).save();
+      await note.refresh();
       return response.json({ data: note.serialize(), msg: 'Updated successfully' });
     } catch (error) {
       console.log(error)

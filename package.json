@@ -9,6 +9,7 @@
     "start:prod": "node ./build/server.js"
   },
   "devDependencies": {
+    "@types/url-parse": "^1.4.3",
     "adonis-preset-ts": "^2.1.0",
     "pino-pretty": "^5.1.2",
     "youch": "^2.2.2",

@@ -90,7 +90,7 @@ export default class NotesController {
 
       await note
         .related('tags')
-        .sync(ids, false);
+        .sync(ids);
 
       await note.merge({ ...payload.note }).save();
       return response.json({ data: note.serialize(), msg: 'Updated successfully' });
@@ -106,7 +106,7 @@ export default class NotesController {
       if (note) {
         await note.delete();
       }
-      return response.json({ data: `${note?.$isDeleted ? 'Note is deleted' : 'Noe is not deleted'}` });
+      return response.json({ data: `${note?.$isDeleted ? 'Note is deleted' : 'Note is not deleted'}` });
     } catch (error) {
       return response.json(error)
     }

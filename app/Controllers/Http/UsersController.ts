@@ -26,6 +26,7 @@ export default class UsersController {
         email: payload.email,
       }, {
         username: payload.username,
+        email: payload.email,
         accessToken: payload.access_token,
       })
 

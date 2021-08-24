@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User';
 import CreateUserValidator from 'App/Validators/CreateUserValidator';
+import LoginUserValidator from 'App/Validators/LoginUserValidator';
 
 export default class UsersController {
   public async register({ request, response }: HttpContextContract) {
@@ -13,34 +14,19 @@ export default class UsersController {
     }
   }
 
-  public async login({ response, ally }: HttpContextContract) {
+  public async login({ request, response }: HttpContextContract) {
     try {
-      // const payload = await request.validate(LoginUserValidator);
-      // const user = await User.query().where('username', payload.username).where('password', payload.password).firstOrFail();
-      const google = ally.use('google')
-
-      if (google.accessDenied())
-        throw ('Access denied');
-
-      if (google.hasError()) {
-        throw (google.getError())
-      }
-
-      /**
-       * Managing error states here
-       */
-
-      const googleUser = await google.user()
+      const payload = await request.validate(LoginUserValidator);
 
       /**
        * Find the user by email or create
        * a new one
        */
       const user = await User.firstOrCreate({
-        email: googleUser.email!,
+        email: payload.email,
       }, {
-        username: googleUser.name,
-        accessToken: googleUser.token.token,
+        username: payload.username,
+        accessToken: payload.access_token,
       })
 
       /**

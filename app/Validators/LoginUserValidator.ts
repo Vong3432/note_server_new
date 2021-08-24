@@ -26,7 +26,8 @@ export default class CreateUserValidator {
 	 */
 	public schema = schema.create({
 		username: schema.string(),
-		password: schema.string()
+		email: schema.string(),
+		access_token: schema.string()
 	})
 	/**
 	 * Custom messages for validation failures. You can make use of dot notation `(.)`

@@ -44,7 +44,15 @@ export default class NotesController {
 
       await user.related('notes').save(newNote);
 
-      return response.json({ data: newNote, msg: 'Add successfully' });
+      const note = await Note
+        .query()
+        .preload('tags')
+        .preload('locations')
+        .where('id', newNote.id)
+        .where('user_id', payload.user_id)
+        .firstOrFail();
+
+      return response.json({ data: note, msg: 'Add successfully' });
     } catch (error) {
       console.log(error)
       return response.json(error)

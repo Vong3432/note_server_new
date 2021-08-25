@@ -34,7 +34,9 @@ export default class CreateNoteValidator {
 			lng: schema.number(),
 		}),
 		user_id: schema.number(),
-		tags: schema.array.optional().members(schema.string())
+		tags: schema.array.optional().members(schema.string({
+			trim: true
+		}))
 	})
 	/**
 	 * Custom messages for validation failures. You can make use of dot notation `(.)`

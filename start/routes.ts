@@ -23,6 +23,7 @@ import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 
 Route.group(() => {
   Route.resource('/notes', 'NotesController').apiOnly()
+  Route.get('/get-self-notes', 'NotesController.getNotesByUserId')
   Route.post('/register', 'UsersController.register')
   Route.post('/login', 'UsersController.login')
   Route.resource('/tags', 'TagsController').apiOnly()

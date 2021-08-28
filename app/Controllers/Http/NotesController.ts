@@ -15,6 +15,15 @@ export default class NotesController {
     }
   }
 
+  public async getNotesByUserId({ request, response }: HttpContextContract) {
+    try {
+      const notes = await Note.query().where('user_id', request.qs().user_id).preload('tags').preload('locations');
+      return response.json({ data: notes });
+    } catch (error) {
+      return response.json(error)
+    }
+  }
+
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate(CreateNoteValidator);

@@ -5,6 +5,7 @@ export default class UpdateNoteValidator {
 	constructor(protected ctx: HttpContextContract) {
 	}
 
+	public existsStrict = true
 	/*
 	 * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
 	 *

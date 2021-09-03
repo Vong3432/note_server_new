@@ -109,7 +109,7 @@ export default class NotesController {
         .related('tags')
         .sync(ids);
 
-      await note.merge({ ...payload.note }).save();
+      await note.merge({ ...payload.note, description: payload.note?.description }).save();
 
       const updatedNote = await Note
         .query()
